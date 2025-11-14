@@ -1,50 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mean Calculator</title>
+    <title>Statistics Calculator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
-            background: #111;
+            margin: 0;
+            background: #0d0d0d;
+            font-family: Arial, sans-serif;
             color: #fff;
-            font-family: Arial;
-            text-align: center;
-            padding: 40px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            width: 300px;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #0f0;
-        }
-        .container {
-            background: #222;
             padding: 20px;
-            width: 420px;
+        }
+
+        .container {
+            max-width: 450px;
             margin: auto;
-            border-radius: 10px;
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #6cf;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #6cf;
+            font-size: 16px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5ab7e6;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #111;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .error {
+            margin-top: 20px;
+            background: #330000;
+            padding: 12px;
+            border-radius: 8px;
+            color: #ff6666;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 18px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <div class="container">
-        <h2>Mean Calculator</h2>
+        <h2>Statistics Calculator</h2>
 
         <form method="POST">
-            <input type="text" name="numbers" placeholder="e.g. 2, 5, 7, 10" required>
-            <br>
-            <button type="submit">Calculate Mean</button>
+            <input 
+                type="text" 
+                name="numbers" 
+                placeholder="Enter numbers like: 2, 5, 7, 10" 
+                required
+            >
+            <button type="submit">Calculate</button>
         </form>
 
-        {% if mean_value is not none %}
-            <div class="result">
-                Mean: {{ mean_value }}
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if result %}
+            <div class="result-box">
+                <p><strong>Mean:</strong> {{ result.mean }}</p>
+                <p><strong>Median:</strong> {{ result.median }}</p>
+                <p><strong>Mode:</strong> 
+                    {% for m in result.mode %}
+                        {{ m }}{{ ", " if not loop.last else "" }}
+                    {% endfor %}
+                </p>
             </div>
         {% endif %}
     </div>
+
 </body>
 </html>
