@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mean Calculator</title>
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: Arial;
+            text-align: center;
+            padding: 40px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f0;
+        }
+        .container {
+            background: #222;
+            padding: 20px;
+            width: 420px;
+            margin: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mean Calculator</h2>
+
+        <form method="POST">
+            <input type="text" name="numbers" placeholder="e.g. 2, 5, 7, 10" required>
+            <br>
+            <button type="submit">Calculate Mean</button>
+        </form>
+
+        {% if mean_value is not none %}
+            <div class="result">
+                Mean: {{ mean_value }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
