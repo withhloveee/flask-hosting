@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    background: #f3f7f7;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.page-wrapper {
+     min-height: calc(100vh - 120px); /* 60px header + 60px footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* CENTER BOX */
+.character-box {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* LEFT IMAGE */
+.left img {
+    width: 320px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* RIGHT TEXT AREA */
+.right {
+    flex-grow: 1;
+}
+
+.right h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.right h3 {
+    margin-top: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+.desc {
+    margin-top: 15px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.info p {
+    margin: 6px 0;
+    color: #333;
+}
