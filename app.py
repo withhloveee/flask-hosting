@@ -1,34 +1,25 @@
-from flask import Flask, render_template, request
-import os
-from statistics import mean, median, multimode
+from flask import Flask,render_template,request,redirect,url_for
+from models import db,AnimeList
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    result = None
-    error = None
+db.init_app(app)
 
-    if request.method == "POST":
-        numbers_str = request.form.get("numbers", "")
+@app.route('/')
+def home():
+    rows = AnimeList.query.all()
+    if rows:
+        return render_template('index.html',rows=rows)
 
-        try:
-            # Split input into floats
-            nums = [float(n.strip()) for n in numbers_str.split(",") if n.strip()]
+@app.route('/character/<int:char_id>')
+def character(char_id):
+    character  = AnimeList.query.filter_by(id=char_id).first()
+    if character :
+        return render_template('character.html',character=character )
+    else:
+        return 'NOT FOUND! Page is in progress btw!'
 
-            if not nums:
-                error = "Please enter at least one number."
-            else:
-                result = {
-                    "mean": mean(nums),
-                    "median": median(nums),
-                    "mode": multimode(nums)  # handles multiple modes
-                }
-        except:
-            error = "Invalid input. Please enter comma-separated numbers."
-
-    return render_template("index.html", result=result, error=error)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run()
